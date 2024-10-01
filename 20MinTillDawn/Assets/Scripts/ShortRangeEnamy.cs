@@ -29,17 +29,16 @@ public class ShortRangeEnamy : Enamy
     void Awake()
     {
         health = 5;
-        speed = 1f;
-        attackFre = 0.5f;
+        speed = 1.01f;
+        attackFre = 1f;
         attackRange = 0.1f;
         moveRange = 1.5f;
         damage = 1;
         gameManager = GameObject.Find("GameManager");
         HitBox = GetComponent<CircleCollider2D>();
     }
-
-    private void OnCollisionStay2D(Collision2D other) {
-        
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("Bullet"))   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
     }
     // Update is called once per frame
     void Update()
@@ -53,6 +52,7 @@ public class ShortRangeEnamy : Enamy
         if(distance>=0 && distance<attackRange && timer==0)
         {
             Attack();
+            //gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
             Debug.Log("Monster Attack!");
             timer+=Time.deltaTime;
         }

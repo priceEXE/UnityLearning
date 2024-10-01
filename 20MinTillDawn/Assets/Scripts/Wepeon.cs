@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class Wepeon : MonoBehaviour
 {
-    private int damage;
     Vector3 mouseWorldPosition;
-    public int getDamage()
-    {
-        return damage;
-    }
     private void FollowMousePo()
     {
         mouseWorldPosition = Input.mousePosition;

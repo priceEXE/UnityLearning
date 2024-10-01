@@ -18,25 +18,21 @@ public class GameManager : MonoBehaviour
         Vector2 vector = Vector2.zero;
         if(Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
         {
-            Debug.Log("get w down");
             Vector2 vectorX = new Vector2(0f,player.GetWalkSpeed());
             vector += vectorX;
         }
         else if(Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
         {
-            Debug.Log("get s down");
             Vector2 vectorX = new(0f,-player.GetWalkSpeed());
             vector += vectorX;
         }
         if(Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
-            Debug.Log("get a down");
             Vector2 vectorY = new(-player.GetWalkSpeed(),0f);
             vector += vectorY;
         }
         else if(Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
-            Debug.Log("get d down");
             Vector2 vectorY = new(player.GetWalkSpeed(),0f);
             vector += vectorY;
         }

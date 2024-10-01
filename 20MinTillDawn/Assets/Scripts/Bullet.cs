@@ -17,6 +17,11 @@ public class Bullet : MonoBehaviour
         timer+=Time.deltaTime;
         if(timer >= LifeTime)   Destroy(gameObject);
     }
+    
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.CompareTag("Enamy"))    
+            Destroy(gameObject);
+    }
     // Update is called once per frame
     void Update()
     {
