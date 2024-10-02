@@ -9,7 +9,9 @@ public abstract class Enamy : MonoBehaviour
     public float attackFre;
     public float attackRange;
     public float moveRange;
-    public CircleCollider2D HitBox;
+    public Collider2D HitBox;
+
+    public SpriteRenderer spriteRenderer;
     public abstract void MoveToPlayer();//移动接口
     public abstract void Attack();//攻击接口
     public abstract void Waiting();//待机接口

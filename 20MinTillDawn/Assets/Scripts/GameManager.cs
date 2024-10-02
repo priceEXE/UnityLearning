@@ -4,57 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private float timer;
-    public Bullet bullet;
+    public Player player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
-    public Player player;
+    
     // Update is called once per frame
     void Update()
     {
-        Vector2 vector = Vector2.zero;
-        if(Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
-        {
-            Vector2 vectorX = new Vector2(0f,player.GetWalkSpeed());
-            vector += vectorX;
-        }
-        else if(Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
-        {
-            Vector2 vectorX = new(0f,-player.GetWalkSpeed());
-            vector += vectorX;
-        }
-        if(Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            Vector2 vectorY = new(-player.GetWalkSpeed(),0f);
-            vector += vectorY;
-        }
-        else if(Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            Vector2 vectorY = new(player.GetWalkSpeed(),0f);
-            vector += vectorY;
-        }
-        player.Walk(ref vector);
-        if(!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.W))
-        {
-            player.ClearSpeed();
-        }
-        if(Input.GetMouseButton(0) && timer == 0f)
-        {
-            player.ShootBullet();
-            timer += Time.deltaTime;
-        }
-        else if(Input.GetMouseButton(0))
-        {
-            timer += Time.deltaTime; 
-            if(timer >= player.GetShootFre()) timer = 0f;
-        }
-        else if(timer != 0f)
-        {
-            timer += Time.deltaTime;
-            if(timer >= player.GetShootFre()) timer = 0f;
-        }
+        
     }
 }

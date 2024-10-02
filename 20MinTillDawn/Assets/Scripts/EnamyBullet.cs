@@ -26,7 +26,7 @@ public class EnamyBullet : Bullet
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player") || other.gameObject.GetComponent<GTree>())
         {
             Destroy(gameObject);
             

@@ -18,6 +18,7 @@ public class LongRangeEnamy : Enamy
         moveRange = 1.5f;
         HitBox = GetComponent<CircleCollider2D>();
         gameManager = GameObject.Find("GameManager");
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void OnTriggerEnter2D(Collider2D other)
@@ -28,6 +29,8 @@ public class LongRangeEnamy : Enamy
     public override void MoveToPlayer()
     {
         Vector2 target =  gameManager.GetComponent<GameManager>().player.transform.position - transform.position;
+        if(target.x < 0)    spriteRenderer.flipX = true;
+        else spriteRenderer.flipY = false;
         GetComponent<Rigidbody2D>().velocity = target.normalized * speed; 
     }
 
@@ -46,6 +49,8 @@ public class LongRangeEnamy : Enamy
         Vector3 direction = (gameManager.GetComponent<GameManager>().player.transform.position - gameObject.transform.position).normalized;
         GameObject Bullet = Instantiate(bullet,GetComponent<Transform>());
         Bullet.GetComponent<Rigidbody2D>().velocity = Bullet.GetComponent<EnamyBullet>().getSpeed() * direction.normalized;
+        Bullet.transform.right = -Bullet.GetComponent<Rigidbody2D>().velocity;
+        Bullet.transform.parent = gameManager.transform;
     }
     // Update is called once per frame
     void Update()

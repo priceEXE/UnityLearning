@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4913561520975649120}
   - component: {fileID: 1308081687802218756}
   - component: {fileID: 615505607852362217}
+  - component: {fileID: 6485817301215344548}
   m_Layer: 0
   m_Name: Enamy(longRange)
   m_TagString: Enamy
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7123352876131530572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.89, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -168,4 +169,26 @@ MonoBehaviour:
   attackRange: 0
   moveRange: 0
   HitBox: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   bullet: {fileID: 8154289743614312793, guid: c8a5ec8f903995b48abef5e467d60ef8, type: 3}
+--- !u!95 &6485817301215344548
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123352876131530572}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d32231190352eb348ac0c1769d9d4b30, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

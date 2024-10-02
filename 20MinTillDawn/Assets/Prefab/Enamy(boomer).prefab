@@ -9,12 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7446110387279388114}
+  - component: {fileID: 6913652350656827131}
   - component: {fileID: 1721956327821884621}
   - component: {fileID: 7943566460047272771}
   - component: {fileID: 8610029469048687449}
+  - component: {fileID: 1810004708413312992}
   m_Layer: 0
   m_Name: Enamy(boomer)
-  m_TagString: Untagged
+  m_TagString: Enamy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,12 +30,33 @@ Transform:
   m_GameObject: {fileID: 8397662288034724722}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3, y: 1.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6913652350656827131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397662288034724722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e21dec33fd47341a747bfeed4a1db9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  damage: 0
+  speed: 0
+  attackFre: 0
+  attackRange: 0
+  moveRange: 0
+  HitBox: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  BoomEffect: {fileID: 7708689216226425183, guid: 7631af27f0f10034a98fedf94e72b45e, type: 3}
 --- !u!212 &1721956327821884621
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -148,3 +171,24 @@ CircleCollider2D:
   m_Offset: {x: -0.005, y: 0}
   serializedVersion: 2
   m_Radius: 0.12
+--- !u!95 &1810004708413312992
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397662288034724722}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 94706806cceb33240baa385e78f1de6b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

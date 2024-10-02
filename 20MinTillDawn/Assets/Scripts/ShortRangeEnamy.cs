@@ -11,6 +11,8 @@ public class ShortRangeEnamy : Enamy
     public override void MoveToPlayer()
     {
         Vector2 target =  gameManager.GetComponent<GameManager>().player.transform.position - transform.position;
+        if(target.x < 0)    spriteRenderer.flipX = true;
+        else spriteRenderer.flipX = false;
         GetComponent<Rigidbody2D>().velocity = target.normalized * speed; 
     }
     // Start is called before the first frame update
@@ -36,9 +38,10 @@ public class ShortRangeEnamy : Enamy
         damage = 1;
         gameManager = GameObject.Find("GameManager");
         HitBox = GetComponent<CircleCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.CompareTag("Bullet"))   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
+        if(other.gameObject.GetComponent<PlayerBullet>())   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
     }
     // Update is called once per frame
     void Update()
