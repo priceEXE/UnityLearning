@@ -31,7 +31,8 @@ public class Player : MonoBehaviour
     {
         health-=damage;
         if(health == 0) Dead();
-    }
+    } 
+
     public void InhanceExp(int exp)//角色获得经验值
     {
         this.exp += exp;
@@ -64,12 +65,21 @@ public class Player : MonoBehaviour
     {
         return damage;
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if(other.gameObject.GetComponent<EnamyBullet>())
+        {
+            DecreaseHealth(other.gameObject.GetComponent<EnamyBullet>().GetDamage());
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         health = 5;
         damage = 1;
     }
+
 
         
 }

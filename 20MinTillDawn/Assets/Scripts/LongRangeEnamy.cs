@@ -1,44 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UIElements;
 
-public class ShortRangeEnamy : Enamy
+public class LongRangeEnamy : Enamy
 {
     private float timer = 0f;
+    public GameObject bullet;
     private GameObject gameManager;
+    // Start is called before the first frame update
+    void Start()
+    {
+        health = 2;
+        damage = 1;
+        speed = 0.9f;
+        attackFre = 0.2f;
+        attackRange = 1f;
+        moveRange = 1.5f;
+        HitBox = GetComponent<CircleCollider2D>();
+        gameManager = GameObject.Find("GameManager");
+    }
+
     public override void MoveToPlayer()
     {
         Vector2 target =  gameManager.GetComponent<GameManager>().player.transform.position - transform.position;
         GetComponent<Rigidbody2D>().velocity = target.normalized * speed; 
     }
-    // Start is called before the first frame update
-    public override void Attack()
-    {
-        gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
-    }
+
     public override float DetecteDitance()
     {
         return (gameManager.GetComponent<GameManager>().player.transform.position - transform.position).magnitude;
     }
+
     public override void Waiting()
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
-    void Awake()
+
+    public override void Attack()
     {
-        health = 5;
-        speed = 1.01f;
-        attackFre = 1f;
-        attackRange = 0.1f;
-        moveRange = 1.5f;
-        damage = 1;
-        gameManager = GameObject.Find("GameManager");
-        HitBox = GetComponent<CircleCollider2D>();
-    }
-    private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.CompareTag("Bullet"))   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
+        Vector3 direction = (gameManager.GetComponent<GameManager>().player.transform.position - gameObject.transform.position).normalized;
+        GameObject Bullet = Instantiate(bullet,GetComponent<Transform>());
+        Bullet.GetComponent<Rigidbody2D>().velocity = Bullet.GetComponent<EnamyBullet>().getSpeed() * direction.normalized;
     }
     // Update is called once per frame
     void Update()
@@ -46,7 +48,7 @@ public class ShortRangeEnamy : Enamy
         if(timer!=0)
         {
             timer+=Time.deltaTime;
-            if(timer >= attackFre)  timer = 0;
+            if(timer>=attackFre)    timer = 0;
         }
         float distance = DetecteDitance();
         if(distance>=0 && distance<attackRange && timer==0)
@@ -65,5 +67,4 @@ public class ShortRangeEnamy : Enamy
             Waiting();
         }
     }
-
 }
