@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     }
     public void DecreaseHealth(int damage)//扣除角色血量
     {
+        Debug.Log("Be attacked!" + damage);
         health-=damage;
         if(health == 0) Dead();
     } 
@@ -66,7 +67,7 @@ public class Player : MonoBehaviour
         return damage;
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.GetComponent<EnamyBullet>())
         {

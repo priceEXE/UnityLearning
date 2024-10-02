@@ -29,6 +29,7 @@ public class EnamyBullet : Bullet
         if(other.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
+            
         }
     }
     // Update is called once per frame

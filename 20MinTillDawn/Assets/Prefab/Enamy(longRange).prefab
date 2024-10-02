@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 615505607852362217}
   m_Layer: 0
   m_Name: Enamy(longRange)
-  m_TagString: Untagged
+  m_TagString: Enamy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -20,6 +20,11 @@ public class LongRangeEnamy : Enamy
         gameManager = GameObject.Find("GameManager");
     }
 
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.GetComponent<PlayerBullet>())   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
+        
+    }
     public override void MoveToPlayer()
     {
         Vector2 target =  gameManager.GetComponent<GameManager>().player.transform.position - transform.position;
