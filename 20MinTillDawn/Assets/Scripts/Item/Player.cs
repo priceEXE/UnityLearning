@@ -6,14 +6,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private int health;//生命值
+    private int maxHealth;//最大生命值
     private int damage;//伤害
     private float walkSpeed = 1;//行动速度
-    private int exp = 0;//累计经验值
+    public int exp = 0;//累计经验值
+    private int maxExp = 50;//最大经验值
+
+    private int Level = 0;//经验等级
     private float shootFrequency = 0.2f;//射击频率
 
     private int ammo;//满弹药数
 
-    public int magazine;//当前弹药基数
+    private int magazine;//当前弹药基数
 
     private float loadTime;//换弹间隔
     private bool isReload = false;
@@ -33,6 +37,7 @@ public class Player : MonoBehaviour
         gameObject.transform.parent = gameManager.transform;
         gameObject.transform.right = -gameObject.GetComponent<Rigidbody2D>().velocity;
         magazine--;
+
     }
     
     public void Walk(ref Vector2 vocalotiy)//行走
@@ -43,14 +48,33 @@ public class Player : MonoBehaviour
     public void DecreaseHealth(int damage)//扣除角色血量
     {
         Debug.Log("Be attacked!" + damage);
+        gameManager.GetComponent<GameManager>().healthLine.DecreaseHealth();
         health-=damage;
         if(health <= 0) Dead();
     } 
+
+    public void IncreaseHealth()//恢复角色血量
+    {
+        if(health<maxHealth)    {
+            health++;
+            gameManager.GetComponent<GameManager>().healthLine.IncreaseHealth();
+        }
+        
+
+    }
 
     public void InhanceExp(int exp)//角色获得经验值
     {
         this.exp += exp;
         Debug.Log("You dead!");
+    }
+
+    public void LevelUp()//升级
+    {
+        exp-=maxExp;
+        maxExp += 10;
+        Level++;
+        gameManager.GetComponent<GameManager>().level.LevelUp(Level);
     }
     public void Dead()
     {
@@ -64,9 +88,25 @@ public class Player : MonoBehaviour
     {
         return health;
     }
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
     public int GetExp()//获取经验值UI
     {
         return exp;
+    }
+    public int GetMaxExp()
+    {
+        return maxExp;
+    }
+    public int GetAmmo()
+    {
+        return ammo;
+    }
+    public int GetMagazine()
+    {
+        return magazine;
     }
     public float GetWalkSpeed()//获取角色行走速度
     {
@@ -88,9 +128,12 @@ public class Player : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        maxHealth = 10;
         health = 5;
+        maxExp = 50;
+        exp = 0;
         damage = 1;
         ammo = 15;
         magazine = ammo;
@@ -101,6 +144,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Reload()
     {
+        magazine = 0;
         isReload = true;
         float timer = 0f;
         while(timer <= loadTime)
@@ -154,6 +198,14 @@ public class Player : MonoBehaviour
         {
             timer += Time.deltaTime;
             if(timer >= shootFrequency) timer = 0f;
+        }
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            exp+=10;
+        }
+        if(exp>=maxExp)
+        {
+            LevelUp();
         }
     }
 }

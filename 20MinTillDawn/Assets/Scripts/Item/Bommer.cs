@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bommer : Enamy
 {
-    private float timer;
     private GameObject gameManager;
     public GameObject BoomEffect;
     // Start is called before the first frame update
@@ -54,8 +53,7 @@ public class Bommer : Enamy
     void Update()
     {
         float distance = DetecteDitance();
-        timer+=Time.deltaTime;
-        if( timer>=attackFre || distance < attackRange)
+        if( distance < attackRange)
         {
             Attack();
         }

@@ -18,6 +18,7 @@ public class ShortRangeEnamy : Enamy
     // Start is called before the first frame update
     public override void Attack()
     {
+        Debug.Log("Attck!");
         gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
     }
     public override float DetecteDitance()
@@ -33,8 +34,8 @@ public class ShortRangeEnamy : Enamy
         health = 5;
         speed = 1.01f;
         attackFre = 1f;
-        attackRange = 0.1f;
-        moveRange = 1.5f;
+        attackRange = 1f;
+        moveRange = 3.0f;
         damage = 1;
         gameManager = GameObject.Find("GameManager");
         HitBox = GetComponent<CircleCollider2D>();

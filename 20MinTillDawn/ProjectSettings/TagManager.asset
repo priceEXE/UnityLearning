@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - Enamy
   - Effect
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -52,4 +53,7 @@ TagManager:
     locked: 0
   - name: Wepeon
     uniqueID: 3480033427
+    locked: 0
+  - name: UI
+    uniqueID: 2995723555
     locked: 0
