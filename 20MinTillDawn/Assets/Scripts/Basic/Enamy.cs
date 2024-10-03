@@ -24,6 +24,7 @@ public abstract class Enamy : MonoBehaviour
     public void Dead()
     {
         Destroy(gameObject);
+        GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
     }
     
 }

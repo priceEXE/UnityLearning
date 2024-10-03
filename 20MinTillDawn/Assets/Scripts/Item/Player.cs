@@ -184,17 +184,17 @@ public class Player : MonoBehaviour
         {
             ClearSpeed();
         }
-        if(Input.GetMouseButton(0) && timer == 0f && magazine != 0 && !isReload)
+        if(Input.GetMouseButton(0) && timer == 0f && magazine != 0 && !isReload && Time.timeScale!=0)
         {
             ShootBullet();
             timer += Time.deltaTime;
         }
-        else if(Input.GetMouseButton(0) && magazine == 0 && !isReload || Input.GetKeyDown(KeyCode.R) && !isReload)
+        else if(Input.GetMouseButton(0) && magazine == 0 && !isReload || Input.GetKeyDown(KeyCode.R) && !isReload && Time.timeScale!=0)
         {
             timer = 0f;
             StartCoroutine(Reload());
         }
-        else if(timer != 0f)
+        else if(timer != 0f && Time.timeScale!=0)
         {
             timer += Time.deltaTime;
             if(timer >= shootFrequency) timer = 0f;
