@@ -168,8 +168,10 @@ MonoBehaviour:
   attackFre: 0
   attackRange: 0
   moveRange: 0
+  exp: 10
   HitBox: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  ExpPoint: {fileID: 3429808106681658903, guid: 38e6c4ffc040f8e4e9cf6aca61ddad68, type: 3}
   bullet: {fileID: 8154289743614312793, guid: c8a5ec8f903995b48abef5e467d60ef8, type: 3}
 --- !u!95 &6485817301215344548
 Animator:

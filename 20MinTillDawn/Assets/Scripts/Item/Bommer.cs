@@ -7,14 +7,15 @@ public class Bommer : Enamy
     private GameObject gameManager;
     public GameObject BoomEffect;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         health = 5;
         speed = 1.05f;
         attackFre = 10f;
         attackRange = 1.5f;
         moveRange = 3f;
-        damage = 4;
+        damage = 1;
+        exp = 10;
         gameManager = GameObject.Find("GameManager");
         HitBox = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -48,6 +49,15 @@ public class Bommer : Enamy
         effect.transform.parent = gameManager.transform;
         gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
         Destroy(gameObject); 
+    }
+
+    public override void Dead()
+    {
+        GameObject point = Instantiate(ExpPoint,GameObject.Find("GameManager").transform);
+        point.transform.position = gameObject.transform.position;
+        point.GetComponent<ExpPoint>().Setexp(exp);
+        Destroy(gameObject);
+        GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
     }
     // Update is called once per frame
     void Update()

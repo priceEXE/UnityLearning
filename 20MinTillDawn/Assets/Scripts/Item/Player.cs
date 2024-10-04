@@ -26,6 +26,11 @@ public class Player : MonoBehaviour
     private Animator animator;
     public GameObject gameManager;//游戏管理器
     private float timer;
+
+    private Wepeon wepeon;
+
+    public AudioClip CollectPoint;
+    private AudioSource audioSource;
     public void ShootBullet()//射击
     {
         Vector3 mousepo = Input.mousePosition;
@@ -65,8 +70,8 @@ public class Player : MonoBehaviour
 
     public void InhanceExp(int exp)//角色获得经验值
     {
+        audioSource.PlayOneShot(CollectPoint);
         this.exp += exp;
-        Debug.Log("You dead!");
     }
 
     public void LevelUp()//升级
@@ -78,7 +83,8 @@ public class Player : MonoBehaviour
     }
     public void Dead()
     {
-        Time.timeScale = 0f;
+        gameManager.GetComponent<GameManager>().Lose();
+        gameObject.SetActive(false);
     }
     public void ClearSpeed()//清空角色速度
     {
@@ -140,10 +146,13 @@ public class Player : MonoBehaviour
         loadTime = 5f;
         gameManager = GameObject.Find("GameManager");
         animator = GetComponent<Animator>();
+        wepeon = GameObject.Find("Player/Wepeon").GetComponent<Wepeon>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public IEnumerator Reload()
     {
+        wepeon.AudioReload();
         magazine = 0;
         isReload = true;
         float timer = 0f;
@@ -154,6 +163,7 @@ public class Player : MonoBehaviour
         }
         magazine = ammo;
         isReload = false;
+        wepeon.AudioStop();
     }
 
     void Update()
@@ -187,6 +197,7 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButton(0) && timer == 0f && magazine != 0 && !isReload && Time.timeScale!=0)
         {
             ShootBullet();
+            wepeon.AudioSHoot();
             timer += Time.deltaTime;
         }
         else if(Input.GetMouseButton(0) && magazine == 0 && !isReload || Input.GetKeyDown(KeyCode.R) && !isReload && Time.timeScale!=0)
@@ -198,10 +209,6 @@ public class Player : MonoBehaviour
         {
             timer += Time.deltaTime;
             if(timer >= shootFrequency) timer = 0f;
-        }
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            exp+=10;
         }
         if(exp>=maxExp)
         {

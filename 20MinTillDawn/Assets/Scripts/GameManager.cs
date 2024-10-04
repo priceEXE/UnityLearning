@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    private bool isVictory;
     private bool isGaming;
     public int enamyCounter;
 
@@ -21,6 +22,12 @@ public class GameManager : MonoBehaviour
     public GameObject ShortRange;
     public GameObject LongRange;
     public GameObject Boomer;
+
+    public AudioClip backgroundMusic;
+    public AudioClip winMusic;
+    public AudioClip loseNusic;
+
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,6 +41,12 @@ public class GameManager : MonoBehaviour
         PausePanel.SetActive(false);
         enamyCounter = 0;
         timer = 0;
+        audioSource = GetComponent<AudioSource>();
+        isVictory = false;
+        audioSource.clip = backgroundMusic;
+        audioSource.loop = true;
+        audioSource.Play();
+        isVictory = false;
     }
     
     private void GenerateEnamy()
@@ -94,19 +107,40 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         StartCoroutine(Load());
     }
+
+    public void Victory()
+    {
+        isVictory = true;
+        audioSource.clip = winMusic;
+        audioSource.loop = false;
+        audioSource.Play();
+        Time.timeScale = 0f;
+    }
+
+    public void Lose()
+    {
+        isVictory = true;
+        audioSource.clip = loseNusic;
+        audioSource.loop = false;
+        audioSource.Play();
+        Time.timeScale = 0f;
+    }
+
+    
     // Update is called once per frame
     void Update()
     {
         if(Time.time > timeTarget)
         {
-            Time.timeScale = 0f;
+            Debug.Log("胜利");
+            Victory();
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape) && isGaming)
+        if(Input.GetKeyDown(KeyCode.Escape) && isGaming && !isVictory)
         {
             Pause();
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && !isGaming)
+        else if(Input.GetKeyDown(KeyCode.Escape) && !isGaming && !isVictory)
         {
             Restart();
         }
@@ -120,6 +154,19 @@ public class GameManager : MonoBehaviour
         if(timer >= 2f)
         {
             timer = 0f;
+        }
+
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            Victory();
+        }
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            Lose();
+        }
+        if(Input.GetKeyDown(KeyCode.F3))
+        {
+            player.InhanceExp(10);
         }
     }
 

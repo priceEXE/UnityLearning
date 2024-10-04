@@ -9,9 +9,12 @@ public abstract class Enamy : MonoBehaviour
     public float attackFre;
     public float attackRange;
     public float moveRange;
+
+    public int exp;
     public Collider2D HitBox;
 
     public SpriteRenderer spriteRenderer;
+    public GameObject ExpPoint;
     public abstract void MoveToPlayer();//移动接口
     public abstract void Attack();//攻击接口
     public abstract void Waiting();//待机接口
@@ -21,10 +24,7 @@ public abstract class Enamy : MonoBehaviour
         health-=damage;
         if(health == 0) Dead();
     }
-    public void Dead()
-    {
-        Destroy(gameObject);
-        GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
-    }
+    public abstract void Dead();
+    
     
 }

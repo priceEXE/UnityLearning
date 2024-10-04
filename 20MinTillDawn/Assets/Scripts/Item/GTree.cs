@@ -25,7 +25,10 @@ public class GTree : Enamy
     {
         gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
     }
-
+    public override void Dead()
+    {
+        return;
+    }
     // Start is called before the first frame update
     void Start()
     {

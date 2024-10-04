@@ -29,6 +29,14 @@ public class ShortRangeEnamy : Enamy
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
+    public override void Dead()
+    {
+        GameObject point = Instantiate(ExpPoint,GameObject.Find("GameManager").transform);
+        point.transform.position = gameObject.transform.position;
+        point.GetComponent<ExpPoint>().Setexp(exp);
+        Destroy(gameObject);
+        GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
+    }
     void Awake()
     {
         health = 5;
@@ -37,6 +45,7 @@ public class ShortRangeEnamy : Enamy
         attackRange = 1f;
         moveRange = 3.0f;
         damage = 1;
+        exp = 10;
         gameManager = GameObject.Find("GameManager");
         HitBox = GetComponent<CircleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
