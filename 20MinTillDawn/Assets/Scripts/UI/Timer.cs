@@ -17,6 +17,7 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float mid = gameManager.GetComponent<GameManager>().StartTime;
         float time = gameManager.GetComponent<GameManager>().timeTarget - (Time.time - gameManager.GetComponent<GameManager>().StartTime);
         int minutes = (int)time / 60;
         int seconds = (int)time % 60;
@@ -26,10 +27,19 @@ public class Timer : MonoBehaviour
             {
                 text.text = "0" + minutes.ToString() + ":" + seconds.ToString();
             }
-            if(seconds < 10 && minutes >= 10)
+            else if(seconds < 10 && minutes >= 10)
             {
                 text.text = minutes.ToString() + ":0" + seconds.ToString();
             }
+            else if(seconds < 10 && minutes < 10)
+            {
+                text.text = "0" + minutes.ToString() + ":0" + seconds.ToString();
+            }
+            else
+            {
+                text.text = minutes.ToString() + ":" + seconds.ToString();
+            }
+
             
         }
         else if(minutes == 0 && seconds!=0)
