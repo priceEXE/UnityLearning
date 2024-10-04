@@ -13,9 +13,9 @@ public class LongRangeEnamy : Enamy
         health = 2;
         damage = 1;
         speed = 0.9f;
-        attackFre = 0.5f;
-        attackRange = 4f;
-        moveRange = 6f;
+        attackFre = 1.2f;
+        attackRange = 8f;
+        moveRange = 13f;
         exp = 10;
         HitBox = GetComponent<CircleCollider2D>();
         gameManager = GameObject.Find("GameManager");
@@ -48,6 +48,7 @@ public class LongRangeEnamy : Enamy
     public override void Waiting()
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        
     }
 
     public override void Attack()
@@ -80,9 +81,13 @@ public class LongRangeEnamy : Enamy
         {
             MoveToPlayer();
         }
-        else
+        else if(distance < MaxDistance)
         {
             Waiting();
+        }
+        else
+        {
+            Clear();
         }
     }
 }

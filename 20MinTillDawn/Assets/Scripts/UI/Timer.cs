@@ -22,7 +22,15 @@ public class Timer : MonoBehaviour
         int seconds = (int)time % 60;
         if(minutes != 0 && seconds != 0)
         {
-            text.text = minutes.ToString() + ":" + seconds.ToString();
+            if(minutes < 10 && seconds>=10)
+            {
+                text.text = "0" + minutes.ToString() + ":" + seconds.ToString();
+            }
+            if(seconds < 10 && minutes >= 10)
+            {
+                text.text = minutes.ToString() + ":0" + seconds.ToString();
+            }
+            
         }
         else if(minutes == 0 && seconds!=0)
         {

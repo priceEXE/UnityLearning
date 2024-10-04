@@ -27,13 +27,14 @@ public class ShortRangeEnamy : Enamy
     public override void Waiting()
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        
     }
     void Awake()
     {
         health = 5;
-        speed = 1.01f;
+        speed = 1f;
         attackFre = 1f;
-        attackRange = 1f;
+        attackRange = 0.7f;
         moveRange = 6f;
         damage = 1;
         exp = 10;
@@ -70,9 +71,13 @@ public class ShortRangeEnamy : Enamy
         {
             MoveToPlayer();
         }
-        else
+        else if(distance < MaxDistance)
         {
             Waiting();
+        }
+        else
+        {
+            Clear();
         }
     }
 

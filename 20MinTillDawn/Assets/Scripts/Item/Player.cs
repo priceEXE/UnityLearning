@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private int health;//生命值
     private int maxHealth;//最大生命值
     private int damage;//伤害
-    private float walkSpeed = 1.5f;//行动速度
+    private float walkSpeed = 1.7f;//行动速度
     public int exp = 0;//累计经验值
     private int maxExp = 50;//最大经验值
 
@@ -158,11 +158,11 @@ public class Player : MonoBehaviour
     void Awake()
     {
         maxHealth = 10;
-        health = 5;
+        health = 6;
         maxExp = 50;
         exp = 0;
         damage = 1;
-        ammo = 15;
+        ammo = 20;
         magazine = ammo;
         loadTime = 2f;
         gameManager = GameObject.Find("GameManager");

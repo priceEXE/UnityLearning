@@ -10,6 +10,7 @@ public abstract class Enamy : MonoBehaviour
     public float attackRange;
     public float moveRange;
 
+    public float MaxDistance = 14f;
     public int exp;
     public Collider2D HitBox;
 
@@ -41,6 +42,11 @@ public abstract class Enamy : MonoBehaviour
         GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
     }
 
+    public void Clear()
+    {
+        Destroy(gameObject);
+        GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
+    }
     
     
 }

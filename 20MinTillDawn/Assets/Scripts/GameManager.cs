@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     private bool isVictory;
     private bool isGaming;
     public int enamyCounter;
-
     public float timer;
     public float timeTarget;
     public Player player;
@@ -59,12 +58,12 @@ public class GameManager : MonoBehaviour
     {
         float a = Random.Range(0f, 6.28f);
         int mod = Random.Range(0,100);
-        float distance = Random.Range(2.5f,5f);
         Vector3 position  = new Vector3(Mathf.Cos(a),Mathf.Sin(a),0);
         if(mod>=0 && mod<=50)
         {
             Debug.Log("近战");
             GameObject p = Instantiate(ShortRange,transform);
+            float distance = Random.Range(3,4);
             p.transform.position = distance * position + player.transform.position;
             enamyCounter++;
         }
@@ -72,6 +71,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("远程");
             GameObject p = Instantiate(LongRange,transform);
+            float distance = Random.Range(4,5);
             p.transform.position = distance * position + player.transform.position;
             enamyCounter++;
         }
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("自爆");
             GameObject p = Instantiate(Boomer,transform);
-            p.transform.position = distance * position + player.transform.position;
+            p.transform.position = 5f * position + player.transform.position;
             enamyCounter++;
         }
     }
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
         }
 
         timer += Time.deltaTime;
-        if(timer >= 1f)
+        if(timer >= 1.5f)
         {
             timer = 0f;
         }

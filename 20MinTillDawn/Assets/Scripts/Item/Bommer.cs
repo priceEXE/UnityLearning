@@ -9,7 +9,7 @@ public class Bommer : Enamy
     void Awake()
     {
         health = 5;
-        speed = 1.05f;
+        speed = 2.1f;
         attackFre = 10f;
         attackRange = 0.9f;
         moveRange = 10f;
@@ -82,9 +82,13 @@ public class Bommer : Enamy
         {
             MoveToPlayer();
         }
-        else
+        else if(distance < MaxDistance)
         {
             Waiting();
+        }
+        else
+        {
+            Clear();
         }
     }
 }
