@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     public AudioClip winMusic;
     public AudioClip loseNusic;
 
+    public AudioClip clickButton;
+
     private AudioSource audioSource;
     // Start is called before the first frame update
     void Awake()
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
     }
     public void QuitGame()
     {
+        audioSource.PlayOneShot(clickButton);
         Application.Quit();
     }
 
@@ -103,13 +106,16 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        
         Time.timeScale = 1f;
+        audioSource.PlayOneShot(clickButton);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Return()
     {
         Time.timeScale = 1f;
+        audioSource.PlayOneShot(clickButton);
         StartCoroutine(Load());
     }
 
