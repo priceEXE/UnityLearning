@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    public float StartTime;
     private bool isVictory;
     private bool isGaming;
     public int enamyCounter;
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject PausePanel;
 
+    private GameObject EndPanel;
     public GameObject ShortRange;
     public GameObject LongRange;
     public GameObject Boomer;
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        StartTime = Time.time;
         isGaming = true;
         timeTarget = 1200;
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -47,6 +51,8 @@ public class GameManager : MonoBehaviour
         audioSource.loop = true;
         audioSource.Play();
         isVictory = false;
+        EndPanel = GameObject.Find("Canvas/EndPanel");
+        EndPanel.SetActive(false);
     }
     
     private void GenerateEnamy()
@@ -98,8 +104,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        isGaming = true;
-        PausePanel.SetActive(false);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void Return()
@@ -121,6 +126,7 @@ public class GameManager : MonoBehaviour
     {
         isVictory = true;
         audioSource.clip = loseNusic;
+        EndPanel.SetActive(true);
         audioSource.loop = false;
         audioSource.Play();
         Time.timeScale = 0f;
@@ -130,10 +136,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.time > timeTarget)
+        if(Time.time - StartTime > timeTarget && !isVictory)
         {
             Debug.Log("胜利");
             Victory();
+            EndPanel.SetActive(true);
         }
 
         if(Input.GetKeyDown(KeyCode.Escape) && isGaming && !isVictory)

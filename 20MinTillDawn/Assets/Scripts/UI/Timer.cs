@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float time = gameManager.GetComponent<GameManager>().timeTarget - Time.time;
+        float time = gameManager.GetComponent<GameManager>().timeTarget - (Time.time - gameManager.GetComponent<GameManager>().StartTime);
         int minutes = (int)time / 60;
         int seconds = (int)time % 60;
         if(minutes != 0 && seconds != 0)

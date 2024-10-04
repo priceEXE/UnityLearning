@@ -8,6 +8,7 @@ TagManager:
   - Enamy
   - Effect
   - UI
+  - Boom
   layers:
   - Default
   - TransparentFX
