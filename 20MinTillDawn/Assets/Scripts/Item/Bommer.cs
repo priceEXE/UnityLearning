@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bommer : Enamy
 {
-    private GameObject gameManager;
     public GameObject BoomEffect;
     // Start is called before the first frame update
     void Awake()
@@ -12,8 +11,8 @@ public class Bommer : Enamy
         health = 5;
         speed = 1.05f;
         attackFre = 10f;
-        attackRange = 1.5f;
-        moveRange = 3f;
+        attackRange = 0.9f;
+        moveRange = 10f;
         damage = 1;
         exp = 10;
         gameManager = GameObject.Find("GameManager");
@@ -23,7 +22,12 @@ public class Bommer : Enamy
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.GetComponent<PlayerBullet>())   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
+        if(other.gameObject.CompareTag("Boom")) Dead();
     }
+
+    //private void OnTriggerStay2D(Collider2D other) {
+     //   if(other.gameObject.CompareTag("Boom")) Dead();
+    //}
 
     public override void Waiting()
     {
@@ -43,22 +47,29 @@ public class Bommer : Enamy
         GetComponent<Rigidbody2D>().velocity = target.normalized * speed; 
     }
 
-    public override void Attack()
+    public override void Dead()
     {
         GameObject effect = Instantiate(BoomEffect,gameObject.transform);
         effect.transform.parent = gameManager.transform;
-        gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
-        Destroy(gameObject); 
-    }
-
-    public override void Dead()
-    {
+        if(gameObject.GetComponent<ShortRangeEnamy>())  gameManager.GetComponent<GameManager>().player.DeathClip = gameObject.GetComponent<ShortRangeEnamy>().DeathClip;
+        if(gameObject.GetComponent<LongRangeEnamy>())   gameManager.GetComponent<GameManager>().player.DeathClip = gameObject.GetComponent<LongRangeEnamy>().DeathClip;
+        if(gameObject.GetComponent<Bommer>())   gameManager.GetComponent<GameManager>().player.DeathClip = gameObject.GetComponent<Bommer>().DeathClip;
+        gameManager.GetComponent<GameManager>().player.AudioDead();
         GameObject point = Instantiate(ExpPoint,GameObject.Find("GameManager").transform);
         point.transform.position = gameObject.transform.position;
         point.GetComponent<ExpPoint>().Setexp(exp);
         Destroy(gameObject);
         GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
     }
+
+    public override void Attack()
+    {
+        GameObject effect = Instantiate(BoomEffect,gameObject.transform);
+        effect.transform.parent = gameManager.transform;
+        gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
+        Dead();
+    }
+
     // Update is called once per frame
     void Update()
     {

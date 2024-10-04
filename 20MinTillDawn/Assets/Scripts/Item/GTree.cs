@@ -5,7 +5,6 @@ using UnityEngine;
 public class GTree : Enamy
 {
     private float timer = 0f;
-    private GameObject gameManager;
     public override void MoveToPlayer()//睁眼
     {
         return;
@@ -24,10 +23,6 @@ public class GTree : Enamy
     public override void Attack()
     {
         gameManager.GetComponent<GameManager>().player.DecreaseHealth(damage);
-    }
-    public override void Dead()
-    {
-        return;
     }
     // Start is called before the first frame update
     void Start()

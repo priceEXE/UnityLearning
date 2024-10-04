@@ -54,6 +54,10 @@ MonoBehaviour:
   bullet: {fileID: 4565503130668881272, guid: 8ad0746c259e39b4c9ecb342636d4265, type: 3}
   gameManager: {fileID: 0}
   CollectPoint: {fileID: 8300000, guid: fa79a058c622c3147ac3a243cf79372b, type: 3}
+  AudioLevelUp: {fileID: 8300000, guid: c001f18148bccdd448973b0616b8705e, type: 3}
+  HitClip: {fileID: 8300000, guid: adcaaba27affc634da9333ab7e5d1453, type: 3}
+  DeathClip: {fileID: 0}
+  HurtClip: {fileID: 8300000, guid: bae88a6b592df81499326c248604ea62, type: 3}
 --- !u!50 &5105377086885832047
 Rigidbody2D:
   serializedVersion: 4

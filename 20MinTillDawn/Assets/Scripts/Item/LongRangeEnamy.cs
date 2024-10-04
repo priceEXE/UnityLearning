@@ -6,16 +6,16 @@ public class LongRangeEnamy : Enamy
 {
     private float timer = 0f;
     public GameObject bullet;
-    private GameObject gameManager;
+    
     // Start is called before the first frame update
     void Awake()
     {
         health = 2;
         damage = 1;
         speed = 0.9f;
-        attackFre = 0.2f;
-        attackRange = 1f;
-        moveRange = 1.5f;
+        attackFre = 0.5f;
+        attackRange = 4f;
+        moveRange = 6f;
         exp = 10;
         HitBox = GetComponent<CircleCollider2D>();
         gameManager = GameObject.Find("GameManager");
@@ -25,8 +25,13 @@ public class LongRangeEnamy : Enamy
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.GetComponent<PlayerBullet>())   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
-        
+        if(other.gameObject.CompareTag("Boom")) Dead();
     }
+
+    //private void OnTriggerStay2D(Collider2D other) {
+    //    if(other.gameObject.CompareTag("Boom")) Dead();
+    //}
+
     public override void MoveToPlayer()
     {
         Vector2 target =  gameManager.GetComponent<GameManager>().player.transform.position - transform.position;
@@ -54,14 +59,7 @@ public class LongRangeEnamy : Enamy
         Bullet.transform.parent = gameManager.transform;
     }
 
-    public override void Dead()
-    {
-        GameObject point = Instantiate(ExpPoint,GameObject.Find("GameManager").transform);
-        point.transform.position = gameObject.transform.position;
-        point.GetComponent<ExpPoint>().Setexp(exp);
-        Destroy(gameObject);
-        GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
-    }
+    
     // Update is called once per frame
     void Update()
     {

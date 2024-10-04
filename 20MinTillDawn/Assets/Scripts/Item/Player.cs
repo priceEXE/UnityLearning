@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private int health;//生命值
     private int maxHealth;//最大生命值
     private int damage;//伤害
-    private float walkSpeed = 1;//行动速度
+    private float walkSpeed = 1.5f;//行动速度
     public int exp = 0;//累计经验值
     private int maxExp = 50;//最大经验值
 
@@ -29,8 +29,17 @@ public class Player : MonoBehaviour
 
     private Wepeon wepeon;
 
-    public AudioClip CollectPoint;
-    private AudioSource audioSource;
+    public AudioClip CollectPoint;//收集经验
+    public AudioClip AudioLevelUp;//升级
+
+    public AudioClip HitClip;//命中音效
+    public AudioClip DeathClip;//击杀音效
+
+    public AudioClip HurtClip;//受伤音效
+
+    private AudioSource audioSource;//音频播放器
+
+
     public void ShootBullet()//射击
     {
         Vector3 mousepo = Input.mousePosition;
@@ -53,6 +62,7 @@ public class Player : MonoBehaviour
     public void DecreaseHealth(int damage)//扣除角色血量
     {
         Debug.Log("Be attacked!" + damage);
+        audioSource.PlayOneShot(HurtClip);
         gameManager.GetComponent<GameManager>().healthLine.DecreaseHealth();
         health-=damage;
         if(health <= 0) Dead();
@@ -76,6 +86,8 @@ public class Player : MonoBehaviour
 
     public void LevelUp()//升级
     {
+        audioSource.PlayOneShot(AudioLevelUp);
+        IncreaseHealth();
         exp-=maxExp;
         maxExp += 10;
         Level++;
@@ -126,6 +138,15 @@ public class Player : MonoBehaviour
     {
         return damage;
     }
+
+    public void AudioHit()
+    {
+        audioSource.PlayOneShot(HitClip);
+    }
+    public void AudioDead()
+    {
+        audioSource.PlayOneShot(DeathClip);
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.GetComponent<EnamyBullet>())
@@ -143,7 +164,7 @@ public class Player : MonoBehaviour
         damage = 1;
         ammo = 15;
         magazine = ammo;
-        loadTime = 5f;
+        loadTime = 2f;
         gameManager = GameObject.Find("GameManager");
         animator = GetComponent<Animator>();
         wepeon = GameObject.Find("Player/Wepeon").GetComponent<Wepeon>();

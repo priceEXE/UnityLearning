@@ -6,8 +6,8 @@ public class PlayerBullet : Bullet
     // Start is called before the first frame update
     void Awake()
     {
-        speed = 2f;
-        LifeTime = 5f;
+        speed = 5f;
+        LifeTime = 3f;
         isEnamyBullet = false;
     }
 

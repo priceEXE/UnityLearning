@@ -52,17 +52,17 @@ public class GameManager : MonoBehaviour
     private void GenerateEnamy()
     {
         float a = Random.Range(0f, 6.28f);
-        int mod = Random.Range(0,100) % 3;
+        int mod = Random.Range(0,100);
         float distance = Random.Range(2.5f,5f);
         Vector3 position  = new Vector3(Mathf.Cos(a),Mathf.Sin(a),0);
-        if(mod==0)
+        if(mod>=0 && mod<=50)
         {
             Debug.Log("近战");
             GameObject p = Instantiate(ShortRange,transform);
             p.transform.position = distance * position + player.transform.position;
             enamyCounter++;
         }
-        else if(mod==1)
+        else if(mod>50 && mod<=75)
         {
             Debug.Log("远程");
             GameObject p = Instantiate(LongRange,transform);
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
         }
 
         timer += Time.deltaTime;
-        if(timer >= 2f)
+        if(timer >= 1f)
         {
             timer = 0f;
         }

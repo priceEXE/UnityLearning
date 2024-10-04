@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 public class ShortRangeEnamy : Enamy
 {
     private float timer = 0f;
-    private GameObject gameManager;
     public override void MoveToPlayer()
     {
         Vector2 target =  gameManager.GetComponent<GameManager>().player.transform.position - transform.position;
@@ -29,21 +28,13 @@ public class ShortRangeEnamy : Enamy
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
-    public override void Dead()
-    {
-        GameObject point = Instantiate(ExpPoint,GameObject.Find("GameManager").transform);
-        point.transform.position = gameObject.transform.position;
-        point.GetComponent<ExpPoint>().Setexp(exp);
-        Destroy(gameObject);
-        GameObject.Find("GameManager").GetComponent<GameManager>().decreaseEnamy();
-    }
     void Awake()
     {
         health = 5;
         speed = 1.01f;
         attackFre = 1f;
         attackRange = 1f;
-        moveRange = 3.0f;
+        moveRange = 6f;
         damage = 1;
         exp = 10;
         gameManager = GameObject.Find("GameManager");
@@ -52,7 +43,13 @@ public class ShortRangeEnamy : Enamy
     }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.GetComponent<PlayerBullet>())   DecreaseHealth(gameManager.GetComponent<GameManager>().player.GetDamage());
+        if(other.gameObject.CompareTag("Boom")) Dead();
     }
+
+    //private void OnTriggerStay2D(Collider2D other) {
+    //    if(other.gameObject.CompareTag("Boom")) Dead();
+    //}
+
     // Update is called once per frame
     void Update()
     {
