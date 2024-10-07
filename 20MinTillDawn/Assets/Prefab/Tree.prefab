@@ -52,7 +52,15 @@ MonoBehaviour:
   attackFre: 0
   attackRange: 0
   moveRange: 0
+  MaxDistance: 14
+  exp: 0
   HitBox: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  ExpPoint: {fileID: 0}
+  DeathClip: {fileID: 0}
+  gameManager: {fileID: 0}
+  openEye: {fileID: 21300000, guid: 4de37afb35157624f83326164732a43b, type: 3}
+  closeEye: {fileID: 21300000, guid: 8034768fd1351fa49a0cdc61dbfcdd8f, type: 3}
 --- !u!212 &2852893501229827554
 SpriteRenderer:
   m_ObjectHideFlags: 0

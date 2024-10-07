@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class GTree : Enamy
 {
+    public Sprite openEye;
+    public Sprite closeEye;
     private float timer = 0f;
     public override void MoveToPlayer()//睁眼
     {
+        spriteRenderer.sprite = openEye;
         return;
     }
 
     public override void Waiting()//闭眼
     {
+        spriteRenderer.sprite = closeEye;
         return;
     }
 
@@ -33,6 +37,7 @@ public class GTree : Enamy
         damage = 1;
         gameManager = GameObject.Find("GameManager");
         HitBox = GetComponent<BoxCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -54,9 +59,14 @@ public class GTree : Enamy
         {
             MoveToPlayer();
         }
-        else
+        else if(distance < 10f)
         {
             Waiting();
+        }
+        else
+        {
+            Clear();
+            gameManager.GetComponent<GameManager>().treeConter--;
         }
     }
 }

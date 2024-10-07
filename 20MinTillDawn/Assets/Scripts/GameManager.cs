@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public float StartTime;
-    private bool isVictory;
+    private bool isEnd;
     private bool isGaming;
     public int enamyCounter;
+
+    public int treeConter;
     public float timer;
     public float timeTarget;
     public Player player;
@@ -25,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject LongRange;
     public GameObject Boomer;
 
+    public GameObject Tree;
     public AudioClip backgroundMusic;
     public AudioClip winMusic;
     public AudioClip loseNusic;
@@ -32,6 +36,8 @@ public class GameManager : MonoBehaviour
     public AudioClip clickButton;
 
     private AudioSource audioSource;
+
+    private Text GameResult;
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,13 +53,14 @@ public class GameManager : MonoBehaviour
         enamyCounter = 0;
         timer = 0;
         audioSource = GetComponent<AudioSource>();
-        isVictory = false;
+        isEnd = false;
         audioSource.clip = backgroundMusic;
         audioSource.loop = true;
         audioSource.Play();
-        isVictory = false;
         EndPanel = GameObject.Find("Canvas/EndPanel");
+        GameResult = GameObject.Find("Canvas/EndPanel/Title").GetComponent<Text>();
         EndPanel.SetActive(false);
+        
     }
     
     private void GenerateEnamy()
@@ -86,6 +93,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void GenerateTree()
+    {
+        float a = Random.Range(0f, 6.28f);
+        Vector3 position  = new Vector3(Mathf.Cos(a),Mathf.Sin(a),0);
+        GameObject p = Instantiate(Tree,transform);
+        float distance = 6f;
+        p.transform.position = distance * position + player.transform.position;
+        treeConter++;
+    }
     public void decreaseEnamy()
     {
         enamyCounter--;
@@ -121,7 +137,9 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
-        isVictory = true;
+        GameResult.text = "You Win!";
+        EndPanel.SetActive(true);
+        isEnd = true;
         audioSource.clip = winMusic;
         audioSource.loop = false;
         audioSource.Play();
@@ -130,7 +148,8 @@ public class GameManager : MonoBehaviour
 
     public void Lose()
     {
-        isVictory = true;
+        GameResult.text = "You Lose!";
+        isEnd = true;
         audioSource.clip = loseNusic;
         EndPanel.SetActive(true);
         audioSource.loop = false;
@@ -142,18 +161,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.time - StartTime > timeTarget && !isVictory)
+        if(Time.time - StartTime > timeTarget && !isEnd)
         {
             Debug.Log("胜利");
             Victory();
-            EndPanel.SetActive(true);
+            
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape) && isGaming && !isVictory)
+        if(Input.GetKeyDown(KeyCode.Escape) && isGaming && !isEnd)
         {
             Pause();
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && !isGaming && !isVictory)
+        else if(Input.GetKeyDown(KeyCode.Escape) && !isGaming && !isEnd)
         {
             Restart();
         }
@@ -163,6 +182,10 @@ public class GameManager : MonoBehaviour
             GenerateEnamy();
         }
 
+        if( treeConter < 3)
+        {
+            GenerateTree();
+        }
         timer += Time.deltaTime;
         if(timer >= 1.5f)
         {

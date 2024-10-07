@@ -31,7 +31,7 @@ public class ShortRangeEnamy : Enamy
     }
     void Awake()
     {
-        health = 5;
+        health = 3;
         speed = 1f;
         attackFre = 1f;
         attackRange = 0.7f;
